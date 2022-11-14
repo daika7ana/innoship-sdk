@@ -82,6 +82,12 @@ class Tables
             53 => 'Eastride',
             54 => 'Kargo',
             55 => 'Sunday Courier',
+            57 => 'Sinapseria',
+            58 => 'UPS',
+            62 => 'ALD',
+            63 => 'ProNatur',
+            69 => 'VanOnGo',
+            72 => 'Sol Air Solutions'
         ];
     }
 
@@ -116,6 +122,11 @@ class Tables
             20 => [
                 'status' => 'In Transit',
                 'description' => "In transit between courier's warehouses / offices",
+                'is_final' => false,
+            ],
+            20 => [
+                'status' => 'Customs Cleared',
+                'description' => "Shipment has been cleared by customs",
                 'is_final' => false,
             ],
             30 => [

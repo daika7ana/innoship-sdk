@@ -12,9 +12,7 @@ class Client
     private $endpoint = 'https://api.innoship.com/api/';
 
     private $curl;
-
     private $error;
-
     private $useragent = 'Innoship API Consumer v1.0';
 
     public function __construct($apiKey)
