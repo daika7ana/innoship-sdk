@@ -11,18 +11,15 @@ class ResponseFactory
         }
 
         if ($statusCode == 400) {
-//           {
-//             errors: [ {message: "string", details: ["string"]} ],
-//             correlationId: "string"
-//           }
-
             if (static::shouldDecode($headers['content-type'] ?? [])) {
                 $decodedBody = json_decode($responseBody, true);
             }
 
             $error = empty($decodedBody['errors'])
                 ? 'Unknown error'
-                : implode(', ', array_column($decodedBody['errors'], 'message'));
+                : implode("&", array_map(function ($a) {
+                    return implode(",", $a);
+                }, $decodedBody['errors']));
 
             return new BadRequest($error, $responseBody);
         }
