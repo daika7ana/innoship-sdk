@@ -15,11 +15,18 @@ class ResponseFactory
                 $decodedBody = json_decode($responseBody, true);
             }
 
-            $error = empty($decodedBody['errors'])
-                ? 'Unknown error'
-                : implode("&", array_map(function ($a) {
-                    return implode(",", $a);
-                }, $decodedBody['errors']));
+            if (empty($decodedBody['errors'])) {
+                $error = 'Unknown error';
+            } else {
+                $errors = array_column($decodedBody['errors'], 'message');
+                if (!empty($errors)) {
+                    $error = implode(', ', $errors);
+                } else {
+                    $error = implode("&", array_map(function ($a) {
+                        return implode(",", $a);
+                    }, $decodedBody['errors']));
+                }
+            }
 
             return new BadRequest($error, $responseBody);
         }
